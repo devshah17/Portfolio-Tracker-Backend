@@ -330,7 +330,7 @@ export const getAllPrices = async () => {
 
     // Fetch stock prices from Yahoo Finance
     if (stocks.length > 0) {
-      const stockSymbols = stocks.map(stock => stock.tickerName);
+      const stockSymbols = stocks.map(stock => ({ symbol: stock.tickerName, currency: stock.currency }));
       const stockPrices = await getStockPrice(stockSymbols);
       
       if (stockPrices) {

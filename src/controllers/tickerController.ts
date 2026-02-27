@@ -1,9 +1,37 @@
 import { Request, Response } from "express";
 import {
+  createTicker,
   deleteTicker,
+  getAllTickers,
   getTickerById,
   updateTicker,
 } from "../services/tickerServices";
+
+export const createTickerController = async (req: Request, res: Response) => {
+  try {
+    const { message, data } = await createTicker(req.body);
+
+    if (message !== "Ticker created successfully") {
+      return res.status(400).json({ message });
+    }
+
+    return res.status(201).json({ message, data });
+  } catch (error: any) {
+    console.log("Error creating ticker:", error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const getAllTickersController = async (req: Request, res: Response) => {
+  try {
+    const { message, data } = await getAllTickers();
+
+    return res.status(200).json({ message, data });
+  } catch (error: any) {
+    console.log("Error fetching tickers:", error);
+    return res.status(500).json({ message: error.message });
+  }
+};
 
 export const getTickerByIdController = async (req: Request, res: Response) => {
   try {

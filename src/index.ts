@@ -2,7 +2,8 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import routes from "./routes";
-import { DbConnect } from "./utils/dbconnect/DbConnect";
+import { DbConnect } from "./config/dbconnect/DbConnect";
+import { initCronJobs } from "./jobs/cron";
 
 const app: Application = express();
 
@@ -20,6 +21,7 @@ app.use("/*path", (req: Request, res: Response) => {
 });
 
 DbConnect();
+initCronJobs();
 
 const PORT = process.env.PORT || 3000;
 

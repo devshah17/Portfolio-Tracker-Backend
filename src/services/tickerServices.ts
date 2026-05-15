@@ -53,7 +53,10 @@ export const createTicker = async (
 
     const existing = await Ticker.findOne({ tickerName: data.tickerName });
     if (existing) {
-      return { message: "Ticker with this tickerName already exists", data: null };
+      return {
+        message: "Ticker with this tickerName already exists",
+        data: null,
+      };
     }
 
     const ticker = await Ticker.create(data);
@@ -135,7 +138,10 @@ export const updateTicker = async (
         _id: { $ne: id },
       });
       if (existing) {
-        return { message: "Ticker with this tickerName already exists", data: null };
+        return {
+          message: "Ticker with this tickerName already exists",
+          data: null,
+        };
       }
     }
 
@@ -180,3 +186,34 @@ export const deleteTicker = async (
   }
 };
 
+import DailyPrice from "../models/DailyPrice";
+
+export const getLatestPrices = async (): Promise<ServiceResult<any>> => {
+  try {
+    const tickers = await Ticker.find().sort({ createdAt: -1 });
+    if (tickers.length === 0) {
+      return { message: "No tickers found", data: [] };
+    }
+
+    // For each ticker, find its latest price entry
+    const tickerWithPrices = await Promise.all(
+      tickers.map(async (t) => {
+        const latestPrice = await DailyPrice.findOne({ tickerId: t._id }).sort({ date: -1 });
+        return {
+          ...t.toObject(),
+          currentPrice: latestPrice ? latestPrice.price : null,
+          exchangeRate: latestPrice ? latestPrice.exchangeRate : 1,
+          priceError: latestPrice ? null : "No price data found in database",
+        };
+      })
+    );
+
+    return {
+      message: "Latest prices fetched from database successfully",
+      data: tickerWithPrices,
+    };
+  } catch (error) {
+    console.log("Error in getLatestPrices:", error);
+    return { message: "Failed to fetch latest prices from database", data: null };
+  }
+};

@@ -6,7 +6,7 @@ import {
   getGroupItemsController,
   addEntryToGroupController,
   removeEntryFromGroupController,
-} from "../controllers/portfolioGroupController";
+} from "../controllers/portfolioGroupController.js";
 
 const router = Router();
 

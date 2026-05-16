@@ -4,7 +4,7 @@ frameworkVersion: "3"
 
 provider:
   name: aws
-  runtime: nodejs24.x
+  runtime: nodejs20.x
   region: ap-south-1
   stage: ${opt:stage, 'prod'}
   memorySize: 512
@@ -13,12 +13,24 @@ provider:
 
   environment:
     NODE_ENV: production
-    MONGODB_URI: ${env:MONGODB_URI}
-    JWT_SECRET: ${env:JWT_SECRET}
-    API_BASE_URL: ${env:API_BASE_URL}
+    MONGODB_URI: ${env:MONGODB_URI, ''}
+    JWT_SECRET: ${env:JWT_SECRET, ''}
+    API_BASE_URL: ${env:API_BASE_URL, ''}
 
   httpApi:
-    cors: true
+    cors:
+      allowedOrigins:
+        - "*"
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+        - X-Requested-With
 
 functions:
   api:
@@ -41,12 +53,25 @@ functions:
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-dotenv-plugin
   - serverless-offline
 
+custom:
+  serverless-offline:
+    httpPort: 3005 # Different from price-tracking-api to avoid conflicts
+    lambdaPort: 3006
+    noPrependStageInUrl: true
+
 package:
-  individually: true
+  individually: false
   patterns:
+    - "!**"
+    - "src/**"
+    - "node_modules/**"
+    - "package.json"
     - "!node_modules/.cache/**"
     - "!node_modules/**/test/**"
     - "!node_modules/**/tests/**"
+    - "!node_modules/**/*.md"
+    - "!node_modules/**/*.ts"
     - "!src/**/*.test.ts"

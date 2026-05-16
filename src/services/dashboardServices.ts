@@ -1,13 +1,13 @@
-import PortfolioItem from "../models/PortfolioItem";
-import PortfolioGroup from "../models/PortfolioGroup";
-import PortfolioEntry from "../models/PortfolioEntry";
-import DailyPrice from "../models/DailyPrice";
+import PortfolioItem from "../models/PortfolioItem.js";
+import PortfolioGroup from "../models/PortfolioGroup.js";
+import PortfolioEntry from "../models/PortfolioEntry.js";
+import DailyPrice from "../models/DailyPrice.js";
 import {
   buildLatestPriceMaps,
   currentValueINR,
   investmentINR,
   unrealisedPLPercent,
-} from "../utils/plCalculations";
+} from "../utils/plCalculations.js";
 
 export const getDashboardStats = async (userId: string) => {
   // 1. Get all assets for the user

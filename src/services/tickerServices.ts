@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Ticker, { TickerType } from "../models/Ticker";
+import Ticker, { TickerType } from "../models/Ticker.js";
 
 type ServiceResult<T = any> = {
   message: string;
@@ -186,7 +186,7 @@ export const deleteTicker = async (
   }
 };
 
-import DailyPrice from "../models/DailyPrice";
+import DailyPrice from "../models/DailyPrice.js";
 
 export const getLatestPrices = async (): Promise<ServiceResult<any>> => {
   try {

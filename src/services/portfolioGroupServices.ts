@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import PortfolioGroup from "../models/PortfolioGroup";
-import PortfolioEntry from "../models/PortfolioEntry";
-import PortfolioItem from "../models/PortfolioItem";
+import PortfolioGroup from "../models/PortfolioGroup.js";
+import PortfolioEntry from "../models/PortfolioEntry.js";
+import PortfolioItem from "../models/PortfolioItem.js";
 
 type ServiceResult<T = any> = {
   message: string;
@@ -63,7 +63,7 @@ export const deletePortfolioGroup = async (
 
 // ── entries (assets inside a group) ──────────────────────────────────────────
 
-import DailyPrice from "../models/DailyPrice";
+import DailyPrice from "../models/DailyPrice.js";
 
 export const getGroupItems = async (
   groupId: string,

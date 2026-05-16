@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import PortfolioItem from "../models/PortfolioItem";
-import Ticker from "../models/Ticker";
-import Transaction from "../models/Transaction";
-import { syncPortfolioFromTransactions } from "./syncServices";
+import PortfolioItem from "../models/PortfolioItem.js";
+import Ticker from "../models/Ticker.js";
+import Transaction from "../models/Transaction.js";
+import { syncPortfolioFromTransactions } from "./syncServices.js";
 
 type ServiceResult<T = any> = {
   message: string;
@@ -50,7 +50,7 @@ export const addPortfolioItem = async (
   }
 };
 
-import DailyPrice from "../models/DailyPrice";
+import DailyPrice from "../models/DailyPrice.js";
 
 export const getUserPortfolio = async (userId: string): Promise<ServiceResult<any[]>> => {
   try {

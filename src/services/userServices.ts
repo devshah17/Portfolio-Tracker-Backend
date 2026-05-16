@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import User from "../models/User";
-import { sendMail } from "../utils/mail/sendMail";
+import User from "../models/User.js";
+import { sendMail } from "../utils/mail/sendMail.js";
 
 type ServiceResult<T = any> = {
   message: string;

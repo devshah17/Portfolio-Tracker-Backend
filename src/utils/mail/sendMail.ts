@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SendMail } from "../../types/types";
+import { SendMail } from "../../types/types.js";
 
 export async function sendMail({
   subject,

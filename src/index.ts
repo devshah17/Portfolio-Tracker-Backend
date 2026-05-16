@@ -1,8 +1,8 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
-import routes from "./routes";
-import { DbConnect } from "./config/dbconnect/DbConnect";
+import routes from "./routes/index.js";
+import { DbConnect } from "./config/dbconnect/DbConnect.js";
 
 const app: Application = express();
 

@@ -1,10 +1,10 @@
 import { Router } from "express";
-import userRoutes from "./userRoutes";
-import tickerRoutes from "./tickerRoutes";
-import portfolioRoutes from "./portfolioRoutes";
-import portfolioGroupRoutes from "./portfolioGroupRoutes";
-import dashboardRoutes from "./dashboardRoutes";
-import transactionRoutes from "./transactionRoutes";
+import userRoutes from "./userRoutes.js";
+import tickerRoutes from "./tickerRoutes.js";
+import portfolioRoutes from "./portfolioRoutes.js";
+import portfolioGroupRoutes from "./portfolioGroupRoutes.js";
+import dashboardRoutes from "./dashboardRoutes.js";
+import transactionRoutes from "./transactionRoutes.js";
 
 const router = Router();
 

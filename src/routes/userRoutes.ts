@@ -8,8 +8,8 @@ import {
   forgotPasswordController,
   resetPasswordController,
   updateUserController,
-} from "../controllers/userController";
-import { authenticateToken } from "../middlewares/authentication";
+} from "../controllers/userController.js";
+import { authenticateToken } from "../middlewares/authentication.js";
 
 const router = Router();
 

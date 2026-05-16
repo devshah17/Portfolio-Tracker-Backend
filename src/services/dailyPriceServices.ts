@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import DailyPrice from "../models/DailyPrice";
-import Ticker from "../models/Ticker";
+import DailyPrice from "../models/DailyPrice.js";
+import Ticker from "../models/Ticker.js";
 
 type ServiceResult<T = unknown> = {
   message: string;

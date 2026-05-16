@@ -4,7 +4,7 @@ import {
   getUserPortfolio,
   deletePortfolioItem,
   updatePortfolioItem,
-} from "../services/portfolioServices";
+} from "../services/portfolioServices.js";
 
 export const addPortfolioItemController = async (req: Request, res: Response) => {
   try {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as dashboardService from "../services/dashboardServices";
+import * as dashboardService from "../services/dashboardServices.js";
 
 export const getDashboardStatsController = async (req: Request, res: Response) => {
   try {

@@ -6,7 +6,7 @@ import {
   getGroupItems,
   addEntryToGroup,
   removeEntryFromGroup,
-} from "../services/portfolioGroupServices";
+} from "../services/portfolioGroupServices.js";
 
 export const createPortfolioGroupController = async (req: Request, res: Response) => {
   try {

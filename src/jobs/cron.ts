@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import { updateTickerPrices } from "../services/cronServices";
+import { updateTickerPrices } from "../services/cronServices.js";
 
 export const initCronJobs = () => {
   // Run every 30 minutes

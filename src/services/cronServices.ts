@@ -1,6 +1,6 @@
 import axios from "axios";
-import Ticker from "../models/Ticker";
-import DailyPrice from "../models/DailyPrice";
+import Ticker from "../models/Ticker.js";
+import DailyPrice from "../models/DailyPrice.js";
 
 export const updateTickerPrices = async () => {
   console.log("CRON: Starting ticker price update...");

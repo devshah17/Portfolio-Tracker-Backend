@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Transaction from "../models/Transaction";
-import PortfolioItem from "../models/PortfolioItem";
+import Transaction from "../models/Transaction.js";
+import PortfolioItem from "../models/PortfolioItem.js";
 
 export const syncPortfolioFromTransactions = async (userId: string) => {
   if (!mongoose.Types.ObjectId.isValid(userId)) {

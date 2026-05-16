@@ -2,6 +2,7 @@
   "name": "portfolio-tracker-backend",
   "version": "1.0.0",
   "description": "Portfolio-Tracker-Backend",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
@@ -47,7 +48,8 @@
     "@types/node": "^25.3.1",
     "@types/node-cron": "^3.0.11",
     "serverless": "^3.40.0",
-    "serverless-offline": "^13.10.0",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-offline": "^13.3.3",
     "serverless-plugin-typescript": "^2.1.5"
   }
 }

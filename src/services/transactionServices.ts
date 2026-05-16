@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import Transaction from "../models/Transaction";
-import DailyPrice from "../models/DailyPrice";
-import Ticker from "../models/Ticker";
-import { syncPortfolioFromTransactions } from "./syncServices";
-import { buildLatestPriceMaps, currentValueINR } from "../utils/plCalculations";
+import Transaction from "../models/Transaction.js";
+import DailyPrice from "../models/DailyPrice.js";
+import Ticker from "../models/Ticker.js";
+import { syncPortfolioFromTransactions } from "./syncServices.js";
+import { buildLatestPriceMaps, currentValueINR } from "../utils/plCalculations.js";
 
 function getFinancialYear(d: Date): string {
   const month = d.getMonth(); // 0-indexed (0 = Jan, 3 = Apr)

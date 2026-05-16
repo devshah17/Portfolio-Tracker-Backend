@@ -6,9 +6,9 @@ import {
   getTickerById,
   updateTicker,
   getLatestPrices,
-} from "../services/tickerServices";
-import { getCurrentExchangeRates } from "../services/exchangeRateServices";
-import { getTickerDailyPrices } from "../services/dailyPriceServices";
+} from "../services/tickerServices.js";
+import { getCurrentExchangeRates } from "../services/exchangeRateServices.js";
+import { getTickerDailyPrices } from "../services/dailyPriceServices.js";
 
 export const createTickerController = async (req: Request, res: Response) => {
   try {

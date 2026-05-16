@@ -8,7 +8,7 @@ import {
   forgotPassword,
   resetPassword,
   updateUser,
-} from "../services/userServices";
+} from "../services/userServices.js";
 
 export const createUser = async (req: Request, res: Response) => {
   try {

@@ -8,7 +8,7 @@ import {
   getLatestPricesController,
   getCurrentExchangeRatesController,
   getTickerDailyPricesController,
-} from "../controllers/tickerController";
+} from "../controllers/tickerController.js";
 
 const router = Router();
 

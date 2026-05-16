@@ -3,7 +3,6 @@ import cors from "cors";
 import "dotenv/config";
 import routes from "./routes";
 import { DbConnect } from "./config/dbconnect/DbConnect";
-import { initCronJobs } from "./jobs/cron";
 
 const app: Application = express();
 
@@ -20,11 +19,23 @@ app.use("/*path", (req: Request, res: Response) => {
   res.status(404).json({ error: "Route not found" });
 });
 
-DbConnect();
-initCronJobs();
+let isConnected = false;
+export const connectToDb = async () => {
+  if (!isConnected) {
+    await DbConnect();
+    isConnected = true;
+  }
+};
 
-const PORT = process.env.PORT || 3000;
+// Only start the server if we are running this file directly (not as a module)
+// RUN_LOCAL is set to true for local development
+if (process.env.RUN_LOCAL === "true" || process.env.NODE_ENV !== "production") {
+  connectToDb().then(() => {
+    const PORT = process.env.PORT || 3001;
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  });
+}
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+export { app };

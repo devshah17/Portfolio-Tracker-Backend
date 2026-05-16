@@ -1,0 +1,52 @@
+service: portfolio-tracker-backend
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs24.x
+  region: ap-south-1
+  stage: ${opt:stage, 'prod'}
+  memorySize: 512
+  timeout: 29
+  architecture: arm64
+
+  environment:
+    NODE_ENV: production
+    MONGODB_URI: ${env:MONGODB_URI}
+    JWT_SECRET: ${env:JWT_SECRET}
+    API_BASE_URL: ${env:API_BASE_URL}
+
+  httpApi:
+    cors: true
+
+functions:
+  api:
+    handler: src/lambda.handler
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: ANY
+      - httpApi:
+          path: /
+          method: ANY
+
+  cron:
+    handler: src/lambda.cronHandler
+    timeout: 300 # 5 minutes for cron
+    events:
+      - schedule:
+          rate: rate(30 minutes)
+          enabled: true
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+package:
+  individually: true
+  patterns:
+    - "!node_modules/.cache/**"
+    - "!node_modules/**/test/**"
+    - "!node_modules/**/tests/**"
+    - "!src/**/*.test.ts"

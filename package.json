@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/devshah17/Portfolio-Tracker-Backend#readme",
   "dependencies": {
+    "@vendia/serverless-express": "^4.12.6",
     "axios": "^1.13.5",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
@@ -36,10 +37,13 @@
     "yahoo-finance2": "^3.13.1"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.161",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.3.1",
-    "@types/node-cron": "^3.0.11"
+    "@types/node-cron": "^3.0.11",
+    "serverless": "^3.40.0",
+    "serverless-plugin-typescript": "^2.1.5"
   }
 }

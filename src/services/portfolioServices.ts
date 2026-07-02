@@ -79,6 +79,24 @@ export const getUserPortfolio = async (userId: string): Promise<ServiceResult<an
           currentExchangeRate: latestPrice ? latestPrice.exchangeRate : 1,
           exchangeRate: item.exchangeRate || 1,
           priceError: latestPrice ? null : "No price data found in database",
+          latestMetrics: latestPrice
+            ? {
+                trailingPE: latestPrice.trailingPE,
+                forwardPE: latestPrice.forwardPE,
+                epsTrailingTwelveMonths: latestPrice.epsTrailingTwelveMonths,
+                epsForward: latestPrice.epsForward,
+                priceToBook: latestPrice.priceToBook,
+                marketCap: latestPrice.marketCap,
+                dividendYield: latestPrice.dividendYield,
+                trailingAnnualDividendYield: latestPrice.trailingAnnualDividendYield,
+                fiftyDayAverage: latestPrice.fiftyDayAverage,
+                twoHundredDayAverage: latestPrice.twoHundredDayAverage,
+                fiftyTwoWeekHigh: latestPrice.fiftyTwoWeekHigh,
+                fiftyTwoWeekLow: latestPrice.fiftyTwoWeekLow,
+                regularMarketVolume: latestPrice.regularMarketVolume,
+                averageDailyVolume3Month: latestPrice.averageDailyVolume3Month,
+              }
+            : null,
         };
       })
     );

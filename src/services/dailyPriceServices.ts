@@ -24,13 +24,13 @@ export const getTickerDailyPrices = async (
     const cap = Math.min(Math.max(limit, 1), 365);
     const rows = await DailyPrice.find({ tickerId })
       .sort({ date: -1 })
-      .limit(cap);
+      .limit(cap)
+      .lean();
 
     const prices = rows
       .reverse()
-      .map((p) => ({
-        date: p.date,
-        price: p.price,
+      .map((p: any) => ({
+        ...p,
         exchangeRate: p.exchangeRate ?? 1,
         priceINR: p.price * (p.exchangeRate ?? 1),
       }));

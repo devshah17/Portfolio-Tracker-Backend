@@ -48,7 +48,7 @@ functions:
     timeout: 300 # 5 minutes for cron
     events:
       - schedule:
-          rate: rate(30 minutes)
+          rate: cron(0 0,12 * * ? *)
           enabled: true
 
 plugins:

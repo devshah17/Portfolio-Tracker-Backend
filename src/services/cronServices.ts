@@ -45,6 +45,21 @@ export const updateTickerPrices = async () => {
             price: pData.price,
             exchangeRate: pData.exchangeRate || 1,
             date: today,
+            trailingPE: pData.trailingPE,
+            forwardPE: pData.forwardPE,
+            epsTrailingTwelveMonths: pData.epsTrailingTwelveMonths,
+            epsForward: pData.epsForward,
+            priceToBook: pData.priceToBook,
+            marketCap: pData.marketCap,
+            dividendYield: pData.dividendYield,
+            trailingAnnualDividendYield: pData.trailingAnnualDividendYield,
+            fiftyDayAverage: pData.fiftyDayAverage,
+            twoHundredDayAverage: pData.twoHundredDayAverage,
+            fiftyTwoWeekHigh: pData.fiftyTwoWeekHigh,
+            fiftyTwoWeekLow: pData.fiftyTwoWeekLow,
+            regularMarketVolume: pData.regularMarketVolume,
+            averageDailyVolume3Month: pData.averageDailyVolume3Month,
+            averageAnalystRating: pData.averageAnalystRating,
           },
           { upsert: true, returnDocument: "after" },
         );
@@ -53,6 +68,15 @@ export const updateTickerPrices = async () => {
         console.log(`CRON: Could not fetch price for ${t.tickerName}`);
       }
     }
+    // Clear records older than 1 year
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+    
+    const deleteResult = await DailyPrice.deleteMany({
+      date: { $lt: oneYearAgo },
+    });
+    console.log(`CRON: Cleaned up ${deleteResult.deletedCount} old price records.`);
+
     console.log("CRON: Ticker price update completed successfully.");
   } catch (error: any) {
     console.error("CRON: Error updating ticker prices:", error.message);

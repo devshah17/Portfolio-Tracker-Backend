@@ -43,6 +43,11 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    targetAllocations: {
+        type: Map,
+        of: Number,
+        default: { "Indian Stock": 50, "US Stock": 50 },
+    }
 });
 
 const User = mongoose.model("User", userSchema);

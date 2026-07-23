@@ -30,6 +30,20 @@ const tickerSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    sector: {
+      type: String,
+      trim: true,
+    },
+    industry: {
+      type: String,
+      trim: true,
+    },
+    relatedCompanies: [
+      {
+        type: String,
+        trim: true,
+      }
+    ],
   },
   {
     timestamps: true,

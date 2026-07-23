@@ -1,6 +1,9 @@
 import axios from "axios";
 import Ticker from "../models/Ticker.js";
 import DailyPrice from "../models/DailyPrice.js";
+import YahooFinance from "yahoo-finance2";
+
+const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
 
 export const updateTickerPrices = async () => {
   console.log("CRON: Starting ticker price update...");
@@ -68,6 +71,40 @@ export const updateTickerPrices = async () => {
         console.log(`CRON: Could not fetch price for ${t.tickerName}`);
       }
     }
+
+    // Update Ticker profiles (Sector, Industry, Related Companies)
+    for (const t of tickers) {
+      try {
+        let updated = false;
+
+        // Fetch sector/industry only if missing
+        if (!t.sector) {
+          const qsResult = await yahooFinance.quoteSummary(t.tickerName, { modules: ['assetProfile'] }).catch(() => null);
+          if (qsResult?.assetProfile) {
+            t.sector = qsResult.assetProfile.sector;
+            t.industry = qsResult.assetProfile.industry;
+            updated = true;
+          }
+        }
+
+        // Always fetch and update related companies
+        const recResult = await yahooFinance.recommendationsBySymbol(t.tickerName).catch(() => null);
+        if (recResult?.recommendedSymbols) {
+          t.relatedCompanies = recResult.recommendedSymbols.map((r: any) => r.symbol);
+          updated = true;
+        }
+
+        if (updated) {
+          await t.save();
+          console.log(`CRON: Updated profile/related for ${t.tickerName}`);
+        }
+      } catch (e) {
+        console.log(`CRON: Error saving profile for ${t.tickerName}`);
+      }
+      // Small delay to avoid rate limiting
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+
     // Clear records older than 1 year
     const oneYearAgo = new Date();
     oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
